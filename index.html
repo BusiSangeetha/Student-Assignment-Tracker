@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Assignment Tracker</title>
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: lavender;
+      color: #333;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+    }
+
+    .tracker-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    form {
+      display: grid;
+      gap: 10px;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: rebeccapurple;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: darkred;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background:plum;
+      color: white;
+    }
+
+    /* Mobile-friendly */
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+      }
+      th {
+        display: none;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      td::before {
+        font-weight: bold;
+        color: #555;
+        content: attr(data-label);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📘 Student Assignment Tracker</h1>
+    <p>Keep track of student assignments easily!!</p>
+  </header>
+
+  <div class="tracker-container">
+    <!-- Form Section -->
+    <form id="assignmentForm">
+      <input type="text" id="name" placeholder="Enter Student Name" required>
+      <input type="text" id="roll" placeholder="Enter Roll Number" required>
+      <textarea id="details" placeholder="Enter Assignment Details" required></textarea>
+      <button type="submit">Add Assignment</button>
+    </form>
+
+    <!-- Table Section -->
+    <table id="assignmentTable">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Roll Number</th>
+          <th>Assignment Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be added dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Grab form and table body
+    const form = document.getElementById("assignmentForm");
+    const tableBody = document.querySelector("#assignmentTable tbody");
+
+    // Handle form submission
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // stop page reload
+
+      // Get values from form
+      const name = document.getElementById("name").value;
+      const roll = document.getElementById("roll").value;
+      const details = document.getElementById("details").value;
+
+      // Create a new row
+      const newRow = document.createElement("tr");
+
+      // Create cells with data
+      newRow.innerHTML = `
+        <td data-label="Student Name">${name}</td>
+        <td data-label="Roll Number">${roll}</td>
+        <td data-label="Assignment">${details}</td>
+      `;
+
+      // Add row to table
+      tableBody.appendChild(newRow);
+
+      // Clear form
+      form.reset();
+    });
+  </script>
+</body>
+</html>
